@@ -1,0 +1,17 @@
+import pandas as pd
+import plotly.express as px
+import plotly.graph_objs as go
+from plotly.subplots import make_subplots
+
+# load in data on US temperature and wildfire occurrences
+temp_data = pd.read_csv("us_temperature_data.csv")
+wildfire_data = pd.read_csv("us_wildfire_data.csv")
+
+# create a scatter plot of temperature vs. wildfire occurrences
+fig = make_subplots(rows=1, cols=2)
+fig.add_trace(go.Scatter(x=temp_data['year'], y=temp_data['avg_temp'], mode='lines', name='Avg. Temperature (F)'))
+fig.add_trace(go.Scatter(x=wildfire_data['year'], y=wildfire_data['wildfire_count'], mode='lines', name='Wildfire Occurrences'))
+fig.update_layout(title='Temperature vs. Wildfire Occurrences in the US', xaxis_title='Year', yaxis_title='Temperature (F) / Wildfire Occurrences')
+
+# show the plot
+fig.show()
